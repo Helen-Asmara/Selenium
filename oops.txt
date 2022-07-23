@@ -1,0 +1,135 @@
+Java Object-Oriented Concepts in Selenium Automation Framework
+INTERFACE
+An interface in the Java programming language is an abstract type that is used to specify a behavior that classes must implement. An interface also contains methods and variables just like the class but the methods declared in the interface are by default abstract.
+
+To understand this the very basic statement we write in Selenium
+
+WebDriver driver = new Chromedriver();
+In this case, WebDriver itself is an Interface. So based on this statement, WebDriver driver = new Chromedriver(); we are initializing chrome browser using Selenium WebDriver. It means we are creating a reference variable (driver) of the interface (WebDriver) and creating an Object. Here WebDriver is an Interface as mentioned earlier and Chromedriver is a class.
+
+ABSTRACTION
+As we are aware, Abstraction is a process of hiding the implementation details from the user and showing only relevant details to them.It also helps to reduce programming complexity and effort.
+
+ 
+package Page_Object;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+
+public class login_page_object extends BaseClass{
+	
+	public login_page_object(WebDriver driver) {
+		
+		super(driver);
+		
+	}
+	
+	@FindBy(how=How.XPATH, using="//a[contains(text(),'Sign in')]")
+	public static WebElement signInBtn;
+	
+	@FindBy(how=How.XPATH, using="//input[@id='email' and @name='email']")
+	public static WebElement emailTxtBox;
+	
+	@FindBy(how=How.XPATH, using="//input[@id='passwd']")
+	public static WebElement pswdTxtBox;
+	
+	@FindBy(how=How.XPATH, using="//button[@id='SubmitLogin']//span")
+	public static WebElement submitBtn;
+	
+	@FindBy(how=How.XPATH, using="//a[@title='View my customer account']/span")
+	public static WebElement usernameLnk;
+
+}
+view rawpage Object Class hosted with ❤ by GitHub
+In our Automation Framework whenever we Use the Page object Model, we write all the locators in the page class and use this locator in our test it means we are hiding our implementation from the user this is a simple example of using abstraction in the framework.
+
+INHERITANCE
+The process by which one class acquires the properties (instance variables) and functionalities of another class are called inheritance.
+When We create a Base Class in our automation Framework to initialize WebDriver interface, waits, loggers, reports, etc., and when we extend this Base Class in other classes such as Tests and Utility Class. In this case, extending one class into another class is an example of implementing Inheritance.
+
+package Page_Object;
+
+import org.openqa.selenium.WebDriver;
+
+public class BaseClass {
+	public static WebDriver driver;
+	 public static boolean bResult;
+	 public BaseClass(WebDriver driver){
+		 BaseClass.driver = driver;
+		 BaseClass.bResult = true;
+		 }
+}
+view rawbase class for Inheritance hosted with ❤ by GitHub
+ENCAPSULATION
+Encapsulation is a mechanism of wrapping data (variables) and code together as a single unit. All the classes which we write in our automation framework are an example of Encapsulation. 
+For e.g In Page object model classes, in which we declare the WebElement locator using @FindBy and initialization of this data members will be done using Constructor to utilize those in test methods.
+
+package Page_Object;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+
+public class login_page_object extends BaseClass{
+	
+	public login_page_object(WebDriver driver) {
+		
+		super(driver);
+		
+	}
+	
+	@FindBy(how=How.XPATH, using="//a[contains(text(),'Sign in')]")
+	public static WebElement signInBtn;
+	
+	@FindBy(how=How.XPATH, using="//input[@id='email' and @name='email']")
+	public static WebElement emailTxtBox;
+	
+	@FindBy(how=How.XPATH, using="//input[@id='passwd']")
+	public static WebElement pswdTxtBox;
+	
+	@FindBy(how=How.XPATH, using="//button[@id='SubmitLogin']//span")
+	public static WebElement submitBtn;
+	
+	@FindBy(how=How.XPATH, using="//a[@title='View my customer account']/span")
+	public static WebElement usernameLnk;
+
+}
+view rawpage Object Class hosted with ❤ by GitHub
+POLYMORPHISM
+Polymorphism means having many forms.  Polymorphism allows us to perform a single action in different ways. In Java polymorphism can be achieved in two ways:
+
+METHOD OVERLOADING
+If a class has multiple methods having the same name but different in parameters, it is known as Method Overloading.
+
+In Implicit wait when we use different time stamps such as SECONDS, MINUTES, HOURS, etc is one of the possible examples of method overloading.
+
+@BeforeMethod
+public void setUp() throws Exception {
+driver = new FirefoxDriver();
+baseUrl = "http://www.google.com";
+
+//Method Overloading any one of the below Mentioned implicitlyWait can be used
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.MINUTES);
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.HOURS);
+}
+view rawMethod Overloading in Automation hosted with ❤ by GitHub
+METHOD OVERRIDING
+If the subclass or child class has the same method as declared in the parent class, it is known as method overriding in Java.
+Whenever we use a method that was already implemented/written in another class by changing its parameters this is the example of method overriding.
+
+public static WebElement findElement(By Locator){
+    WebElement element = fluentWait.until(new Function<WebDriver, WebElement>() {
+        @Override
+        public WebElement apply(WebDriver driver) {
+            return driver.findElement(Locator);
+        }
+    });
+    return element;
+}
+view rawMethod Overriding in Automation Framework hosted with ❤ by GitHub
+Explore more blogs on Development, Testing and DevOps follow the link
+
